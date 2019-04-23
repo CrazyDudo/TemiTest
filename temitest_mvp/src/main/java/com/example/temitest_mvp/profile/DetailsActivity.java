@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -19,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DetailsActivity extends AppCompatActivity {
+public class DetailsActivity extends AppCompatActivity implements DetailsContract.IView{
 
     @BindView(R.id.iv_detail_avatar)
     ImageView ivDetailAvatar;
@@ -35,24 +36,34 @@ public class DetailsActivity extends AppCompatActivity {
     TextView tvAddress;
     @BindView(R.id.btn_message)
     Button btnMessage;
+
+    private DetailsContract.IPresenter presenter;
+    private ContactsBean contactsBean;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         ButterKnife.bind(this);
         initData();
-
+        initPresenter();
     }
+
+    private void initPresenter() {
+        presenter=new DetailsPresenter(this);
+    }
+
     @OnClick({R.id.btn_message})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
             case R.id.btn_message:
+                presenter.sendPushNotification(contactsBean);
                 break;
         }
     }
     private void initData() {
-        ContactsBean contactsBean = getIntent().getExtras().getParcelable("contact_info");
+        contactsBean = getIntent().getExtras().getParcelable("contact_info");
 
         Glide.with(this).load(contactsBean.getAvatar()).apply(new RequestOptions()
                 .error(this.getResources().getDrawable(R.mipmap.default_img))
@@ -68,4 +79,14 @@ public class DetailsActivity extends AppCompatActivity {
         tvAddress.setText(contactsBean.getAddress());
     }
 
+    @Override
+    public void onSendSuccess() {
+        Toast.makeText(this, "Send Success", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSendFaild() {
+        Toast.makeText(this, "Send Failed", Toast.LENGTH_SHORT).show();
+
+    }
 }
