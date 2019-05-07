@@ -19,6 +19,7 @@ public class DetailsPresenter implements DetailsContract.IPresenter {
     public DetailsPresenter(DetailsContract.IView view) {
         this.view = view;
     }
+
     @Override
     public void sendPushNotification(ContactsBean contactsBean) {
         sendMessage(contactsBean);
