@@ -101,7 +101,7 @@ public class DetailsActivity extends AppCompatActivity {
     private void sendMessage() {
         HashMap<String, Object> body = new HashMap<>();
         HashMap<String, String> notification = new HashMap();
-        notification.put("alert", "Hi,this is a Temi test message");
+        notification.put("alert", "Hi,this is a test message");
         body.put("platform", "all");
         body.put("audience", "all");
         body.put("notification", notification);

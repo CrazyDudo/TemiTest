@@ -10,6 +10,6 @@ import rx.Observable;
 
 public interface ContactsDataApi {
 
-    @GET("leslieam/contacts/master/contacts_mock_short.json")
+    @GET("contacts_mock_short.json")
     Observable<List<ContactsBean>> getContactsData();
 }

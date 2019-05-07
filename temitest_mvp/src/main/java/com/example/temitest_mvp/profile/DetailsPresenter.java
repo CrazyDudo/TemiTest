@@ -28,7 +28,7 @@ public class DetailsPresenter implements DetailsContract.IPresenter {
     private void sendMessage(ContactsBean contactsBean) {
         HashMap<String, Object> body = new HashMap<>();
         HashMap<String, String> notification = new HashMap();
-        notification.put("alert", "Hi,this is a Temi test message from " + contactsBean.getFirst_name());
+        notification.put("alert", "Hi,this is a test message from " + contactsBean.getFirst_name());
         body.put("platform", "all");
         body.put("audience", "all");
         body.put("notification", notification);
